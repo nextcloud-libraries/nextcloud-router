@@ -119,7 +119,7 @@ export const generateFilePath = (app: string, type: string, file: string) => {
             link += file
         }
     } else if (file.substring(file.length - 3) !== 'php' && !isCore) {
-        link = OC.appswebroots.get(app);
+        link = OC.appswebroots[app];
         if (type) {
             link += '/' + type + '/'
         }
