@@ -10,7 +10,7 @@ declare var OC: OC16to17;
  * @param {string} file the file path relative to the app folder
  * @return {string} Absolute URL to a file
  */
-export const linkTo = (app: string, file: string) => filePath(app, '', file)
+export const linkTo = (app: string, file: string) => generateFilePath(app, '', file)
 
 /**
  * Creates a relative url for remote use
@@ -18,14 +18,14 @@ export const linkTo = (app: string, file: string) => filePath(app, '', file)
  * @param {string} service id
  * @return {string} the url
  */
-export const linkToRemoteBase = (service: string) => getRootPath() + '/remote.php/' + service
+const linkToRemoteBase = (service: string) => getRootUrl() + '/remote.php/' + service
 
 /**
  * @brief Creates an absolute url for remote use
  * @param {string} service id
  * @return {string} the url
  */
-export const linkToRemote = (service: string) => window.location.protocol + '//' + window.location.host + linkToRemoteBase(service)
+export const generateRemoteUrl = (service: string) => window.location.protocol + '//' + window.location.host + linkToRemoteBase(service)
 
 /**
  * Get the base path for the given OCS API service
@@ -34,9 +34,9 @@ export const linkToRemote = (service: string) => window.location.protocol + '//'
  * @param {int} version OCS API version
  * @return {string} OCS API base path
  */
-export const linkToOCS = (service: string, version: Number) => {
+export const generateOcsUrl = (service: string, version: Number) => {
     version = (version !== 2) ? 1 : 2
-    return window.location.protocol + '//' + window.location.host + getRootPath() + '/ocs/v' + version + '.php/' + service + '/'
+    return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php/' + service + '/'
 }
 
 export interface UrlOptions {
@@ -74,10 +74,10 @@ export const generateUrl = (url: string, params: object, options?: UrlOptions) =
     }
 
     if (OC.config.modRewriteWorking === true) {
-        return getRootPath() + _build(url, params);
+        return getRootUrl() + _build(url, params);
     }
 
-    return getRootPath() + '/index.php' + _build(url, params);
+    return getRootUrl() + '/index.php' + _build(url, params);
 }
 
 /**
@@ -92,10 +92,10 @@ export const generateUrl = (url: string, params: object, options?: UrlOptions) =
 export const imagePath = (app: string, file: string) => {
     if (file.indexOf('.') === -1) {
         //if no extension is given, use svg
-        return filePath(app, 'img', file + '.svg')
+        return generateFilePath(app, 'img', file + '.svg')
     }
 
-    return filePath(app, 'img', file)
+    return generateFilePath(app, 'img', file)
 }
 
 /**
@@ -106,9 +106,9 @@ export const imagePath = (app: string, file: string) => {
  * @param {string} file the filename
  * @return {string} Absolute URL for a file in an app
  */
-export const filePath = (app: string, type: string, file: string) => {
+export const generateFilePath = (app: string, type: string, file: string) => {
     const isCore = OC.coreApps.indexOf(app) !== -1
-    let link = getRootPath()
+    let link = getRootUrl()
     if (file.substring(file.length - 3) === 'php' && !isCore) {
         link += '/index.php/apps/' + app;
         if (file !== 'index.php') {
@@ -155,4 +155,4 @@ export const filePath = (app: string, type: string, file: string) => {
  *
  * @return {string} web root path
  */
-export const getRootPath = () => OC.webroot
+export const getRootUrl = () => OC.webroot
