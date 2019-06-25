@@ -50,7 +50,7 @@ export interface UrlOptions {
  *
  * @return {string} Absolute URL for the given relative URL
  */
-export const generateUrl = (url: string, params: object, options?: UrlOptions) => {
+export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
     const allOptions = Object.assign({
         escape: true
     }, options || {})
@@ -74,10 +74,10 @@ export const generateUrl = (url: string, params: object, options?: UrlOptions) =
     }
 
     if (OC.config.modRewriteWorking === true) {
-        return getRootUrl() + _build(url, params);
+        return getRootUrl() + _build(url, params || {});
     }
 
-    return getRootUrl() + '/index.php' + _build(url, params);
+    return getRootUrl() + '/index.php' + _build(url, params || {});
 }
 
 /**
