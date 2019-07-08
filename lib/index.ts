@@ -40,7 +40,8 @@ export const generateOcsUrl = (service: string, version: Number) => {
 }
 
 export interface UrlOptions {
-    escape: boolean
+    escape: boolean,
+    noRewrite: boolean
 }
 
 /**
@@ -52,7 +53,8 @@ export interface UrlOptions {
  */
 export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
     const allOptions = Object.assign({
-        escape: true
+        escape: true,
+        noRewrite: false
     }, options || {})
 
     const _build = function (text: string, vars: object) {
@@ -73,7 +75,7 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
 
     }
 
-    if (OC.config.modRewriteWorking === true) {
+    if (OC.config.modRewriteWorking === true && !allOptions.noRewrite) {
         return getRootUrl() + _build(url, params || {});
     }
 
