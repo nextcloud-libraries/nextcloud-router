@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "babel ./lib --out-dir dist --extensions '.ts,.tsx' --source-maps && tsc --emitDeclarationOnly",
+    "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
     "check-types": "tsc",
     "dev": "babel ./lib --out-dir dist --extensions '.ts,.tsx' --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,6 +31,7 @@
     "@babel/preset-typescript": "7.7.4",
     "@nextcloud/browserslist-config": "^1.0.0",
     "@nextcloud/typings": "0.1.4",
+    "typedoc": "^0.15.5",
     "typescript": "3.7.3"
   },
   "browserslist": [
