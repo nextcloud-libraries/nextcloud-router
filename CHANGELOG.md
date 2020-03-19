@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.0.1 - 2020-03-19
+## 1.0.2 - 2020-03-19
 ### Changed
 - Dependency updates
 ### Fixed
