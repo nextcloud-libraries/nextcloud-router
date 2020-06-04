@@ -1,7 +1,6 @@
 /// <reference types="@nextcloud/typings" />
 
-type OC16to17 = Nextcloud.v16.OC | Nextcloud.v17.OC
-declare var OC: OC16to17;
+declare var OC: Nextcloud.v16.OC | Nextcloud.v17.OC | Nextcloud.v18.OC | Nextcloud.v19.OC;
 
 /**
  * Get an absolute url to a file in an app
