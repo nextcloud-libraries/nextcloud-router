@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.1.0 - 2020-08-20
+## 1.2.0 - 2020-08-20
 ### Added
 - Nextcloud 20 support
 ### Changed
