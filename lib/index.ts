@@ -34,7 +34,7 @@ export const generateRemoteUrl = (service: string) => window.location.protocol +
  * @return {string} OCS API base path
  */
 export const generateOcsUrl = (service: string, version: Number) => {
-    version = (version !== 2) ? 1 : 2
+    version = (version !== 1) ? 2 : 1
     return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php/' + service + '/'
 }
 
