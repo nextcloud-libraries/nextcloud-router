@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.0.0 - 20YY-MM-DD
+### Changed
+- generateOcsUrl can now replace routing parameters like generateUrl
+- generateOcsUrl no longer contains a trailing slash unless given in the URL
+
 ## 1.2.0 - 2020-08-20
 ### Added
 - Nextcloud 20 support
