@@ -32,6 +32,8 @@ export const generateRemoteUrl = (service: string) => window.location.protocol +
  * @param {string} url OCS API service url
  * @param {object} params parameters to be replaced into the service url
  * @param {UrlOptions} options options for the parameter replacement
+ * @param {boolean} options.escape Set to false if parameters should not be URL encoded (default true)
+ * @param {Number} options.ocsVersion OCS version to use (defaults to 2)
  * @return {string} Absolute path for the OCS URL
  */
 export const generateOcsUrl = (url: string, params?: object, options?: UrlOptions) => {
@@ -91,6 +93,11 @@ const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) =>
  *
  * Parameters will be URL encoded automatically
  *
+ * @param {string} url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
+ * @param {object} params parameters to be replaced into the url
+ * @param {UrlOptions} options options for the parameter replacement
+ * @param {boolean} options.noRewrite True if you want to force index.php being added
+ * @param {boolean} options.escape Set to false if parameters should not be URL encoded (default true)
  * @return {string} URL with webroot for the given relative URL
  */
 export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
