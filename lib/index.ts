@@ -3,11 +3,11 @@
 declare var OC: Nextcloud.v16.OC | Nextcloud.v17.OC | Nextcloud.v18.OC | Nextcloud.v19.OC | Nextcloud.v20.OC;
 
 /**
- * Get an absolute url to a file in an app
+ * Get an url with webroot to a file in an app
  *
  * @param {string} app the id of the app the file belongs to
  * @param {string} file the file path relative to the app folder
- * @return {string} Absolute URL to a file
+ * @return {string} URL with webroot to a file
  */
 export const linkTo = (app: string, file: string) => generateFilePath(app, '', file)
 
@@ -29,31 +29,42 @@ export const generateRemoteUrl = (service: string) => window.location.protocol +
 /**
  * Get the base path for the given OCS API service
  *
- * @param {string} service name
- * @param {int} version OCS API version
- * @return {string} OCS API base path
+ * @param {string} url OCS API service url
+ * @param {object} params parameters to be replaced into the service url
+ * @param {UrlOptions} options options for the parameter replacement
+ * @param {boolean} options.escape Set to false if parameters should not be URL encoded (default true)
+ * @param {Number} options.ocsVersion OCS version to use (defaults to 2)
+ * @return {string} Absolute path for the OCS URL
  */
-export const generateOcsUrl = (service: string, version: Number) => {
-    version = (version !== 2) ? 1 : 2
-    return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php/' + service + '/'
+export const generateOcsUrl = (url: string, params?: object, options?: UrlOptions) => {
+    const allOptions = Object.assign({
+        ocsVersion: 2
+    }, options || {})
+
+   const version = (allOptions.ocsVersion === 1) ? 1 : 2
+
+    return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options);
 }
 
 export interface UrlOptions {
     escape: boolean,
-    noRewrite: boolean
+    noRewrite: boolean,
+    ocsVersion: Number
 }
 
 /**
- * Generate the absolute url for the given relative url, which can contain parameters
+ * Generate a url path, which can contain parameters
  *
  * Parameters will be URL encoded automatically
  *
- * @return {string} Absolute URL for the given relative URL
+ * @param {string} url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
+ * @param {object} params parameters to be replaced into the address
+ * @param {UrlOptions} options options for the parameter replacement
+ * @return {string} Path part for the given URL
  */
-export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
+const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) => {
     const allOptions = Object.assign({
-        escape: true,
-        noRewrite: false
+        escape: true
     }, options || {})
 
     const _build = function (text: string, vars: object) {
@@ -69,20 +80,40 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
             }
         );
     };
+
     if (url.charAt(0) !== '/') {
         url = '/' + url;
-
     }
 
-    if (OC.config.modRewriteWorking === true && !allOptions.noRewrite) {
-        return getRootUrl() + _build(url, params || {});
-    }
-
-    return getRootUrl() + '/index.php' + _build(url, params || {});
+    return _build(url, params || {});
 }
 
 /**
- * Get the absolute path to an image file
+ * Generate the url with webroot for the given relative url, which can contain parameters
+ *
+ * Parameters will be URL encoded automatically
+ *
+ * @param {string} url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
+ * @param {object} params parameters to be replaced into the url
+ * @param {UrlOptions} options options for the parameter replacement
+ * @param {boolean} options.noRewrite True if you want to force index.php being added
+ * @param {boolean} options.escape Set to false if parameters should not be URL encoded (default true)
+ * @return {string} URL with webroot for the given relative URL
+ */
+export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
+    const allOptions = Object.assign({
+        noRewrite: false
+    }, options || {})
+
+    if (OC.config.modRewriteWorking === true && !allOptions.noRewrite) {
+        return getRootUrl() + _generateUrlPath(url, params, options);
+    }
+
+    return getRootUrl() + '/index.php' + _generateUrlPath(url, params, options);
+}
+
+/**
+ * Get the path with webroot to an image file
  * if no extension is given for the image, it will automatically decide
  * between .png and .svg based on what the browser supports
  *
@@ -100,12 +131,12 @@ export const imagePath = (app: string, file: string) => {
 }
 
 /**
- * Get the absolute url for a file in an app
+ * Get the url with webroot for a file in an app
  *
  * @param {string} app the id of the app
  * @param {string} type the type of the file to link to (e.g. css,img,ajax.template)
  * @param {string} file the filename
- * @return {string} Absolute URL for a file in an app
+ * @return {string} URL with webroot for a file in an app
  */
 export const generateFilePath = (app: string, type: string, file: string) => {
     const isCore = OC.coreApps.indexOf(app) !== -1
