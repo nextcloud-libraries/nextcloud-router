@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.0.1 - 2022-12-28
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.0.0...v2.0.1)
+
+### Fixed
+- fix: fix window variable definition
+
+### Changed
+- Add documentation link to Readme
+- Add NPM image to readme
+- chore: upgrade lockfile to version 2
+- Dependency updates
+- feat: add node test
+- feat: fixup commits check
+- fix: fix docs generation
+
 ## 2.0.0 - 2021-04-07
 ### Changed
 - generateOcsUrl can now replace routing parameters like generateUrl
