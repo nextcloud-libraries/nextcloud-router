@@ -1,6 +1,10 @@
 /// <reference types="@nextcloud/typings" />
 
-declare var OC: Nextcloud.v16.OC | Nextcloud.v17.OC | Nextcloud.v18.OC | Nextcloud.v19.OC | Nextcloud.v20.OC;
+declare global {
+    interface Window {
+        OC: Nextcloud.v16.OC | Nextcloud.v17.OC | Nextcloud.v18.OC | Nextcloud.v19.OC | Nextcloud.v20.OC;
+    }
+}
 
 /**
  * Get an url with webroot to a file in an app
@@ -105,7 +109,7 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
         noRewrite: false
     }, options || {})
 
-    if (OC.config.modRewriteWorking === true && !allOptions.noRewrite) {
+    if (window?.OC?.config?.modRewriteWorking === true && !allOptions.noRewrite) {
         return getRootUrl() + _generateUrlPath(url, params, options);
     }
 
@@ -139,7 +143,7 @@ export const imagePath = (app: string, file: string) => {
  * @return {string} URL with webroot for a file in an app
  */
 export const generateFilePath = (app: string, type: string, file: string) => {
-    const isCore = OC.coreApps.indexOf(app) !== -1
+    const isCore = window?.OC?.coreApps?.indexOf(app) !== -1
     let link = getRootUrl()
     if (file.substring(file.length - 3) === 'php' && !isCore) {
         link += '/index.php/apps/' + app;
@@ -151,7 +155,7 @@ export const generateFilePath = (app: string, type: string, file: string) => {
             link += file
         }
     } else if (file.substring(file.length - 3) !== 'php' && !isCore) {
-        link = OC.appswebroots[app];
+        link = window?.OC?.appswebroots?.[app];
         if (type) {
             link += '/' + type + '/'
         }
@@ -187,4 +191,4 @@ export const generateFilePath = (app: string, type: string, file: string) => {
  *
  * @return {string} web root path
  */
-export const getRootUrl = () => OC.webroot
+export const getRootUrl = () => window?.OC?.webroot || ''
