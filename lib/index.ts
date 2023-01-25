@@ -8,6 +8,8 @@ declare global {
 
 /**
  * Get an url with webroot to a file in an app
+ * Note: to call an API declared in an app's appinfo/routes.php, use
+ *       linkTo(appName, 'index.php') + '/path/to/your/api'
  *
  * @param {string} app the id of the app the file belongs to
  * @param {string} file the file path relative to the app folder
@@ -136,6 +138,8 @@ export const imagePath = (app: string, file: string) => {
 
 /**
  * Get the url with webroot for a file in an app
+ * Note: to call an API declared in an app's appinfo/routes.php, use
+ *       generateFilePath(appName, '', 'index.php') + '/path/to/your/api'
  *
  * @param {string} app the id of the app
  * @param {string} type the type of the file to link to (e.g. css,img,ajax.template)
