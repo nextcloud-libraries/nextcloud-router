@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.0 – 2023-04-20
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.0.1...v2.1.0)
+
+### Changed
+- Dependency updates
+
 ## 2.0.1 - 2022-12-28
 
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.0.0...v2.0.1)
