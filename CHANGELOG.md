@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.1 – 2023-04-21
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.0...v2.1.1)
+
+### Fixed
+- Moved @nextcloud/typings from dev to production dependency
+
 ## 2.1.0 – 2023-04-20
 
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.0.1...v2.1.0)
