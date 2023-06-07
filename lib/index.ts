@@ -1,11 +1,3 @@
-/// <reference types="@nextcloud/typings" />
-
-declare global {
-    interface Window {
-        OC: Nextcloud.v16.OC | Nextcloud.v17.OC | Nextcloud.v18.OC | Nextcloud.v19.OC | Nextcloud.v20.OC;
-    }
-}
-
 /**
  * Get an url with webroot to a file in an app
  *
