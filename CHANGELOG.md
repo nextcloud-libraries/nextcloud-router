@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.2 – 2023-06-13
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.1...v2.1.2)
+
+### Fixed
+- Do not export the declaration of `window.OC` to prevent typing clashes with applications
+
 ## 2.1.1 – 2023-04-21
 
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.0...v2.1.1)
