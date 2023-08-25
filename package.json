@@ -30,7 +30,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
-    "@nextcloud/browserslist-config": "^2.0.0",
+    "@nextcloud/browserslist-config": "^3.0.0",
     "typedoc": "^0.24.8",
     "typescript": "^5.1.3"
   },
