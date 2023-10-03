@@ -4,4 +4,4 @@
 
 Generate URLs for the Nextcloud front-end
 
-Documentation: https://nextcloud.github.io/nextcloud-router/
+Documentation: https://nextcloud-libraries.github.io/nextcloud-router/
