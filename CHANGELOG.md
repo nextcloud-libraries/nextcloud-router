@@ -2,15 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2.1.2 – 2023-06-13
+## 2.2.0 - 2023-10-18
+[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.2...v2.2.0)
 
+### What's Changed
+* chore: update NC typings versions by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-router/pull/491
+* chore: update node engines to next LTS by @nextcloud-command in https://github.com/nextcloud-libraries/nextcloud-router/pull/493
+* fix(docs): adjust link to docs by @raimund-schluessler in https://github.com/nextcloud-libraries/nextcloud-router/pull/503
+
+### Dependencies
+* build(deps-dev): Bump @babel/cli from 7.22.10 to 7.22.10 by @dependabot
+* build(deps-dev): Bump @babel/core from 7.22.10 to 7.23.2 by @dependabot
+* build(deps-dev): Bump @babel/preset-env from 7.22.10 to 7.22.10 by @dependabot
+* build(deps-dev): Bump @babel/preset-typescript from 7.22.11 to 7.23.2 by @dependabot
+* build(deps-dev): Bump @nextcloud/browserslist-config from 2.3.0 to 3.0.0 by @dependabot
+* build(deps-dev): Bump typedoc from 0.24.8 to 0.25.2 by @dependabot
+* build(deps-dev): Bump typescript from 5.1.3 to 5.2.2 by @dependabot
+* build(deps): Bump core-js from 3.30.2 to 8.4.31 by @dependabot
+
+### New Contributors
+* @raimund-schluessler made their first contribution in https://github.com/nextcloud-libraries/nextcloud-router/pull/503
+
+## 2.1.2 – 2023-06-13
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.1...v2.1.2)
 
 ### Fixed
 - Do not export the declaration of `window.OC` to prevent typing clashes with applications
 
 ## 2.1.1 – 2023-04-21
-
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.0...v2.1.1)
 
 ### Fixed
