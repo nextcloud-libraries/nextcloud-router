@@ -19,6 +19,12 @@ export interface UrlOptions {
 	 * @default 2
 	 */
 	ocsVersion?: number
+
+	/**
+	 * URL to use as a base (defaults to current instance)
+	 * @default ''
+	 */
+	baseURL?: string
 }
 
 /**
@@ -42,8 +48,12 @@ const linkToRemoteBase = (service: string) => '/remote.php/' + service
  * Creates an absolute url for remote use
  * @param {string} service id
  * @return {string} the url
+ * @param {UrlOptions} [options] options for the parameter replacement
  */
-export const generateRemoteUrl = (service: string) => getBaseUrl() + linkToRemoteBase(service)
+export const generateRemoteUrl = (service: string, options?: UrlOptions) => {
+	const baseURL = options?.baseURL ?? getBaseUrl()
+	return baseURL + linkToRemoteBase(service)
+}
 
 /**
  * Get the base path for the given OCS API service
@@ -59,8 +69,9 @@ export const generateOcsUrl = (url: string, params?: object, options?: UrlOption
 	}, options || {})
 
 	const version = (allOptions.ocsVersion === 1) ? 1 : 2
+	const baseURL = options?.baseURL ?? getBaseUrl()
 
-	return getBaseUrl() + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options)
+	return baseURL + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options)
 }
 
 /**
@@ -101,6 +112,7 @@ const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) =>
 
 /**
  * Generate the url with webroot for the given relative url, which can contain parameters
+ * If options.baseURL is provided, generate the absolute url pointing ro remote server
  *
  * Parameters will be URL encoded automatically
  *
@@ -114,11 +126,13 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
 		noRewrite: false,
 	}, options || {})
 
+	const baseOrRootURL = options?.baseURL ?? getRootUrl()
+
 	if (window?.OC?.config?.modRewriteWorking === true && !allOptions.noRewrite) {
-		return getRootUrl() + _generateUrlPath(url, params, options)
+		return baseOrRootURL + _generateUrlPath(url, params, options)
 	}
 
-	return getRootUrl() + '/index.php' + _generateUrlPath(url, params, options)
+	return baseOrRootURL + '/index.php' + _generateUrlPath(url, params, options)
 }
 
 /**
