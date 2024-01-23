@@ -36,14 +36,14 @@ export const linkTo = (app: string, file: string) => generateFilePath(app, '', f
  * @param {string} service id
  * @return {string} the url
  */
-const linkToRemoteBase = (service: string) => getRootUrl() + '/remote.php/' + service
+const linkToRemoteBase = (service: string) => '/remote.php/' + service
 
 /**
  * Creates an absolute url for remote use
  * @param {string} service id
  * @return {string} the url
  */
-export const generateRemoteUrl = (service: string) => window.location.protocol + '//' + window.location.host + linkToRemoteBase(service)
+export const generateRemoteUrl = (service: string) => getBaseUrl() + linkToRemoteBase(service)
 
 /**
  * Get the base path for the given OCS API service
@@ -60,7 +60,7 @@ export const generateOcsUrl = (url: string, params?: object, options?: UrlOption
 
 	const version = (allOptions.ocsVersion === 1) ? 1 : 2
 
-	return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options)
+	return getBaseUrl() + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options)
 }
 
 /**
@@ -188,6 +188,15 @@ export const generateFilePath = (app: string, type: string, file: string) => {
 	}
 	return link
 }
+
+/**
+ * Return the full base URL where this Nextcloud instance
+ * is accessible, with a web root included.
+ * For example "https://company.com/nextcloud".
+ *
+ * @return {string} base URL
+ */
+export const getBaseUrl = () => window.location.protocol + '//' + window.location.host + getRootUrl()
 
 /**
  * Return the web root path where this Nextcloud instance
