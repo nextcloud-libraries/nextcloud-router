@@ -78,7 +78,7 @@ const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) =>
 		escape: true,
 	}, options || {})
 
-	const _build = function(text: string, vars: object) {
+	const _build = function(text: string, vars: Record<string, unknown>) {
 		vars = vars || {}
 		return text.replace(/{([^{}]*)}/g,
 			function(a: string, b: string) {
@@ -96,7 +96,7 @@ const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) =>
 		url = '/' + url
 	}
 
-	return _build(url, params || {})
+	return _build(url, (params || {}) as Record<string, unknown>)
 }
 
 /**
