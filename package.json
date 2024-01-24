@@ -9,6 +9,8 @@
     "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
     "check-types": "tsc",
     "dev": "babel ./lib --out-dir dist --extensions '.ts,.tsx' --watch",
+    "lint": "eslint . lib",
+    "lint:fix": "eslint --fix lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -22,8 +24,8 @@
     "url": "https://github.com/nextcloud/nextcloud-router"
   },
   "dependencies": {
-    "core-js": "^3.6.4",
-    "@nextcloud/typings": "^1.7.0"
+    "@nextcloud/typings": "^1.7.0",
+    "core-js": "^3.6.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -31,6 +33,8 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
     "@nextcloud/browserslist-config": "^3.0.0",
+    "@nextcloud/eslint-config": "^8.3.0",
+    "eslint": "^8.56.0",
     "typedoc": "^0.25.0",
     "typescript": "^5.1.3"
   },
