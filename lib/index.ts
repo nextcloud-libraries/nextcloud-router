@@ -1,4 +1,27 @@
 /**
+ * Options for URL parameter replacement
+ */
+export interface UrlOptions {
+	/**
+	 * Set to false if parameters should not be URL encoded
+	 * @default true
+	 */
+	escape: boolean
+
+	/**
+	 * True if you want to force index.php being added
+	 * @default false
+	 */
+	noRewrite: boolean
+
+	/**
+	 * OCS version to use
+	 * @default 2
+	 */
+	ocsVersion: number
+}
+
+/**
  * Get an url with webroot to a file in an app
  *
  * @param {string} app the id of the app the file belongs to
@@ -16,7 +39,7 @@ export const linkTo = (app: string, file: string) => generateFilePath(app, '', f
 const linkToRemoteBase = (service: string) => getRootUrl() + '/remote.php/' + service
 
 /**
- * @brief Creates an absolute url for remote use
+ * Creates an absolute url for remote use
  * @param {string} service id
  * @return {string} the url
  */
@@ -28,24 +51,16 @@ export const generateRemoteUrl = (service: string) => window.location.protocol +
  * @param {string} url OCS API service url
  * @param {object} params parameters to be replaced into the service url
  * @param {UrlOptions} options options for the parameter replacement
- * @param {boolean} options.escape Set to false if parameters should not be URL encoded (default true)
- * @param {Number} options.ocsVersion OCS version to use (defaults to 2)
  * @return {string} Absolute path for the OCS URL
  */
 export const generateOcsUrl = (url: string, params?: object, options?: UrlOptions) => {
-    const allOptions = Object.assign({
-        ocsVersion: 2
-    }, options || {})
+	const allOptions = Object.assign({
+		ocsVersion: 2,
+	}, options || {})
 
-   const version = (allOptions.ocsVersion === 1) ? 1 : 2
+	const version = (allOptions.ocsVersion === 1) ? 1 : 2
 
-    return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options);
-}
-
-export interface UrlOptions {
-    escape: boolean,
-    noRewrite: boolean,
-    ocsVersion: Number
+	return window.location.protocol + '//' + window.location.host + getRootUrl() + '/ocs/v' + version + '.php' + _generateUrlPath(url, params, options)
 }
 
 /**
@@ -59,29 +74,29 @@ export interface UrlOptions {
  * @return {string} Path part for the given URL
  */
 const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) => {
-    const allOptions = Object.assign({
-        escape: true
-    }, options || {})
+	const allOptions = Object.assign({
+		escape: true,
+	}, options || {})
 
-    const _build = function (text: string, vars: object) {
-        vars = vars || {};
-        return text.replace(/{([^{}]*)}/g,
-            function (a: string, b: any) {
-                var r = vars[b];
-                if (allOptions.escape) {
-                    return (typeof r === 'string' || typeof r === 'number') ? encodeURIComponent(r.toString()) : encodeURIComponent(a);
-                } else {
-                    return (typeof r === 'string' || typeof r === 'number') ? r.toString() : a;
-                }
-            }
-        );
-    };
+	const _build = function(text: string, vars: object) {
+		vars = vars || {}
+		return text.replace(/{([^{}]*)}/g,
+			function(a: string, b: string) {
+				const r = vars[b]
+				if (allOptions.escape) {
+					return (typeof r === 'string' || typeof r === 'number') ? encodeURIComponent(r.toString()) : encodeURIComponent(a)
+				} else {
+					return (typeof r === 'string' || typeof r === 'number') ? r.toString() : a
+				}
+			},
+		)
+	}
 
-    if (url.charAt(0) !== '/') {
-        url = '/' + url;
-    }
+	if (url.charAt(0) !== '/') {
+		url = '/' + url
+	}
 
-    return _build(url, params || {});
+	return _build(url, params || {})
 }
 
 /**
@@ -92,20 +107,18 @@ const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) =>
  * @param {string} url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
  * @param {object} params parameters to be replaced into the url
  * @param {UrlOptions} options options for the parameter replacement
- * @param {boolean} options.noRewrite True if you want to force index.php being added
- * @param {boolean} options.escape Set to false if parameters should not be URL encoded (default true)
  * @return {string} URL with webroot for the given relative URL
  */
 export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
-    const allOptions = Object.assign({
-        noRewrite: false
-    }, options || {})
+	const allOptions = Object.assign({
+		noRewrite: false,
+	}, options || {})
 
-    if (window?.OC?.config?.modRewriteWorking === true && !allOptions.noRewrite) {
-        return getRootUrl() + _generateUrlPath(url, params, options);
-    }
+	if (window?.OC?.config?.modRewriteWorking === true && !allOptions.noRewrite) {
+		return getRootUrl() + _generateUrlPath(url, params, options)
+	}
 
-    return getRootUrl() + '/index.php' + _generateUrlPath(url, params, options);
+	return getRootUrl() + '/index.php' + _generateUrlPath(url, params, options)
 }
 
 /**
@@ -118,12 +131,12 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
  * @return {string}
  */
 export const imagePath = (app: string, file: string) => {
-    if (file.indexOf('.') === -1) {
-        //if no extension is given, use svg
-        return generateFilePath(app, 'img', file + '.svg')
-    }
+	if (file.indexOf('.') === -1) {
+		// if no extension is given, use svg
+		return generateFilePath(app, 'img', file + '.svg')
+	}
 
-    return generateFilePath(app, 'img', file)
+	return generateFilePath(app, 'img', file)
 }
 
 /**
@@ -135,45 +148,45 @@ export const imagePath = (app: string, file: string) => {
  * @return {string} URL with webroot for a file in an app
  */
 export const generateFilePath = (app: string, type: string, file: string) => {
-    const isCore = window?.OC?.coreApps?.indexOf(app) !== -1
-    let link = getRootUrl()
-    if (file.substring(file.length - 3) === 'php' && !isCore) {
-        link += '/index.php/apps/' + app;
-        if (file !== 'index.php') {
-            link += '/'
-            if (type) {
-                link += encodeURI(type + '/')
-            }
-            link += file
-        }
-    } else if (file.substring(file.length - 3) !== 'php' && !isCore) {
-        link = getAppRootUrl(app)
-        if (type) {
-            link += '/' + type + '/'
-        }
-        if (link.substring(link.length - 1) !== '/') {
-            link += '/'
-        }
-        link += file
-    } else {
-        if ((app === 'settings' || app === 'core' || app === 'search') && type === 'ajax') {
-            link += '/index.php/'
-        } else {
-            link += '/'
-        }
-        if (!isCore) {
-            link += 'apps/'
-        }
-        if (app !== '') {
-            app += '/'
-            link += app
-        }
-        if (type) {
-            link += type + '/'
-        }
-        link += file
-    }
-    return link
+	const isCore = window?.OC?.coreApps?.indexOf(app) !== -1
+	let link = getRootUrl()
+	if (file.substring(file.length - 3) === 'php' && !isCore) {
+		link += '/index.php/apps/' + app
+		if (file !== 'index.php') {
+			link += '/'
+			if (type) {
+				link += encodeURI(type + '/')
+			}
+			link += file
+		}
+	} else if (file.substring(file.length - 3) !== 'php' && !isCore) {
+		link = getAppRootUrl(app)
+		if (type) {
+			link += '/' + type + '/'
+		}
+		if (link.substring(link.length - 1) !== '/') {
+			link += '/'
+		}
+		link += file
+	} else {
+		if ((app === 'settings' || app === 'core' || app === 'search') && type === 'ajax') {
+			link += '/index.php/'
+		} else {
+			link += '/'
+		}
+		if (!isCore) {
+			link += 'apps/'
+		}
+		if (app !== '') {
+			app += '/'
+			link += app
+		}
+		if (type) {
+			link += type + '/'
+		}
+		link += file
+	}
+	return link
 }
 
 /**
@@ -184,18 +197,18 @@ export const generateFilePath = (app: string, type: string, file: string) => {
  * @return {string} web root path
  */
 export function getRootUrl(): string {
-    let webroot = window._oc_webroot
+	let webroot = window._oc_webroot
 
-    if (typeof webroot === 'undefined') {
-        webroot = location.pathname
-        const pos = webroot.indexOf('/index.php/')
-        if (pos !== -1) {
-            webroot = webroot.substr(0, pos)
-        } else {
-            webroot = webroot.substr(0, webroot.lastIndexOf('/'))
-        }
-    }
-    return webroot
+	if (typeof webroot === 'undefined') {
+		webroot = location.pathname
+		const pos = webroot.indexOf('/index.php/')
+		if (pos !== -1) {
+			webroot = webroot.substr(0, pos)
+		} else {
+			webroot = webroot.substr(0, webroot.lastIndexOf('/'))
+		}
+	}
+	return webroot
 }
 
 /**
@@ -203,6 +216,6 @@ export function getRootUrl(): string {
  * @param {string} app The ID of the app
  */
 export function getAppRootUrl(app: string): string {
-    const webroots = window._oc_appswebroots ?? {}
-    return webroots[app] ?? ''
+	const webroots = window._oc_appswebroots ?? {}
+	return webroots[app] ?? ''
 }
