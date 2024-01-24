@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.2.1 - 2024-01-24
+[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.2.0...v2.2.1)
+
+### Fixed
+* fix: Do not rely on `OC.webroots` or `OC.appwebroots` but use own logic by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/560
+
+### Changed
+* chore: Update NPM version to 10 to align with version shipped by LTS Node 20 by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/559
+
 ## 2.2.0 - 2023-10-18
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.2...v2.2.0)
 
