@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "declaration": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "outDir": "./dist",
         "strict": true,
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
     }
 }
