@@ -26,7 +26,7 @@
     "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
     "dev": "vite --mode development build",
     "dev:watch": "vite --mode development build --watch",
-    "lint": "eslint . lib",
+    "lint": "eslint lib",
     "lint:fix": "eslint --fix lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

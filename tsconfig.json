@@ -1,13 +1,15 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "outDir": "./dist",
-        "strict": true,
-        "lib": [
-            "es6",
-            "dom"
-        ],
-    }
+	"include": ["lib/**.ts"],
+	"compilerOptions": {
+		"rootDir": "lib",
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"outDir": "./dist",
+		"strict": true,
+		"lib": [
+			"es6",
+			"dom"
+		]
+	}
 }
