@@ -147,7 +147,7 @@ export const generateFilePath = (app: string, type: string, file: string) => {
             link += file
         }
     } else if (file.substring(file.length - 3) !== 'php' && !isCore) {
-        link = window?.OC?.appswebroots?.[app];
+        link = getAppRootUrl(app)
         if (type) {
             link += '/' + type + '/'
         }
@@ -183,4 +183,26 @@ export const generateFilePath = (app: string, type: string, file: string) => {
  *
  * @return {string} web root path
  */
-export const getRootUrl = () => window?.OC?.webroot || ''
+export function getRootUrl(): string {
+    let webroot = window._oc_webroot
+
+    if (typeof webroot === 'undefined') {
+        webroot = location.pathname
+        const pos = webroot.indexOf('/index.php/')
+        if (pos !== -1) {
+            webroot = webroot.substr(0, pos)
+        } else {
+            webroot = webroot.substr(0, webroot.lastIndexOf('/'))
+        }
+    }
+    return webroot
+}
+
+/**
+ * Return the web root path for a given app
+ * @param {string} app The ID of the app
+ */
+export function getAppRootUrl(app: string): string {
+    const webroots = window._oc_appswebroots ?? {}
+    return webroots[app] ?? ''
+}
