@@ -163,8 +163,9 @@ export const imagePath = (app: string, file: string) => {
  */
 export const generateFilePath = (app: string, type: string, file: string) => {
 	const isCore = window?.OC?.coreApps?.indexOf(app) !== -1
+	const isPHP = file.slice(-3) === 'php'
 	let link = getRootUrl()
-	if (file.substring(file.length - 3) === 'php' && !isCore) {
+	if (isPHP && !isCore) {
 		link += `/index.php/apps/${app}`
 		if (type) {
 			link += `/${encodeURI(type)}`
@@ -172,7 +173,7 @@ export const generateFilePath = (app: string, type: string, file: string) => {
 		if (file !== 'index.php') {
 			link += `/${file}`
 		}
-	} else if (file.substring(file.length - 3) !== 'php' && !isCore) {
+	} else if (!isPHP && !isCore) {
 		link = getAppRootUrl(app)
 		if (type) {
 			link += '/' + type + '/'
@@ -186,9 +187,6 @@ export const generateFilePath = (app: string, type: string, file: string) => {
 			link += '/index.php/'
 		} else {
 			link += '/'
-		}
-		if (!isCore) {
-			link += 'apps/'
 		}
 		if (app !== '') {
 			app += '/'
