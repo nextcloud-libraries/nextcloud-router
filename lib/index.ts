@@ -6,19 +6,19 @@ export interface UrlOptions {
 	 * Set to false if parameters should not be URL encoded
 	 * @default true
 	 */
-	escape: boolean
+	escape?: boolean
 
 	/**
 	 * True if you want to force index.php being added
 	 * @default false
 	 */
-	noRewrite: boolean
+	noRewrite?: boolean
 
 	/**
 	 * OCS version to use
 	 * @default 2
 	 */
-	ocsVersion: number
+	ocsVersion?: number
 }
 
 /**
@@ -203,9 +203,9 @@ export function getRootUrl(): string {
 		webroot = location.pathname
 		const pos = webroot.indexOf('/index.php/')
 		if (pos !== -1) {
-			webroot = webroot.substr(0, pos)
+			webroot = webroot.slice(0, pos)
 		} else {
-			webroot = webroot.substr(0, webroot.lastIndexOf('/'))
+			webroot = webroot.slice(0, webroot.lastIndexOf('/'))
 		}
 	}
 	return webroot

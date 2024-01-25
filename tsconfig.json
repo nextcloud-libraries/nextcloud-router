@@ -6,10 +6,9 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"outDir": "./dist",
-		"strict": true,
 		"lib": [
-			"es6",
-			"dom"
-		]
+			"DOM",
+			"ES2015",
+		],
 	}
 }
