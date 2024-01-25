@@ -162,7 +162,7 @@ export const imagePath = (app: string, file: string) => {
  * @return {string} URL with webroot for a file in an app
  */
 export const generateFilePath = (app: string, type: string, file: string) => {
-	const isCore = window?.OC?.coreApps?.indexOf(app) !== -1
+	const isCore = window?.OC?.coreApps?.includes(app) ?? false
 	const isPHP = file.slice(-3) === 'php'
 	let link = getRootUrl()
 	if (isPHP && !isCore) {
@@ -176,26 +176,23 @@ export const generateFilePath = (app: string, type: string, file: string) => {
 	} else if (!isPHP && !isCore) {
 		link = getAppRootUrl(app)
 		if (type) {
-			link += '/' + type + '/'
+			link += `/${type}/`
 		}
-		if (link.substring(link.length - 1) !== '/') {
+		if (link.at(-1) !== '/') {
 			link += '/'
 		}
 		link += file
 	} else {
 		if ((app === 'settings' || app === 'core' || app === 'search') && type === 'ajax') {
-			link += '/index.php/'
-		} else {
-			link += '/'
+			link += '/index.php'
 		}
-		if (app !== '') {
-			app += '/'
-			link += app
+		if (app) {
+			link += `/${app}`
 		}
 		if (type) {
-			link += type + '/'
+			link += `/${type}`
 		}
-		link += file
+		link += `/${file}`
 	}
 	return link
 }

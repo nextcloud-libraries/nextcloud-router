@@ -42,6 +42,20 @@ describe('Path generation', () => {
 		beforeEach(() => {
 			window._oc_webroot = ''
 			window._oc_appswebroots = { forms: '/apps-extra/forms' }
+
+			window.OC = {
+				coreApps: ['', 'admin', 'log', 'core/search', 'core', '3rdparty'],
+			}
+		})
+
+		test('missing core apps global variable', () => {
+			delete window.OC.coreApps
+			expect(generateFilePath('forms', '', 'file.js')).toBe('/apps-extra/forms/file.js')
+		})
+
+		test('missing OC global variable (unit tests)', () => {
+			delete window.OC
+			expect(generateFilePath('forms', '', 'file.js')).toBe('/apps-extra/forms/file.js')
 		})
 
 		test('non core PHP index file', () => {
