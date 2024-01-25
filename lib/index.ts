@@ -151,13 +151,12 @@ export const generateFilePath = (app: string, type: string, file: string) => {
 	const isCore = window?.OC?.coreApps?.indexOf(app) !== -1
 	let link = getRootUrl()
 	if (file.substring(file.length - 3) === 'php' && !isCore) {
-		link += '/index.php/apps/' + app
+		link += `/index.php/apps/${app}`
+		if (type) {
+			link += `/${encodeURI(type)}`
+		}
 		if (file !== 'index.php') {
-			link += '/'
-			if (type) {
-				link += encodeURI(type + '/')
-			}
-			link += file
+			link += `/${file}`
 		}
 	} else if (file.substring(file.length - 3) !== 'php' && !isCore) {
 		link = getAppRootUrl(app)
