@@ -48,9 +48,8 @@ describe('Path generation', () => {
 			expect(generateFilePath('forms', '', 'index.php')).toBe('/index.php/apps/forms')
 		})
 
-		// TODO: This feels wrong, I would expect `/index.php/apps/forms/templates`
 		test('non core PHP index files with type', () => {
-			expect(generateFilePath('forms', 'templates', 'index.php')).toBe('/index.php/apps/forms')
+			expect(generateFilePath('forms', 'templates', 'index.php')).toBe('/index.php/apps/forms/templates')
 		})
 
 		test('non core PHP file', () => {
