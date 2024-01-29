@@ -38,10 +38,26 @@ describe('URL generation', () => {
 		}
 	})
 
-	test('generateRemoteUrl', () => {
-		window._oc_webroot = '/nextcloud'
-		expect(generateRemoteUrl('dav')).toBe(`${window.location.href}nextcloud/remote.php/dav`)
+	describe('generateRemoteUrl', () => {
+		beforeEach(() => {
+			window._oc_webroot = ''
+		})
+
+		it('uses base URL by default', () => {
+			expect(generateRemoteUrl('dav')).toBe(`${window.location.origin}/remote.php/dav`)
+		})
+
+		it('replaces base URL with given one', () => {
+			const baseURL = 'https://remote-url.com'
+			expect(generateRemoteUrl('dav', { baseURL })).toBe(`${baseURL}/remote.php/dav`)
+		})
+
+		it('includes webroot', () => {
+			window._oc_webroot = '/nextcloud'
+			expect(generateRemoteUrl('dav')).toBe(`${window.location.origin}/nextcloud/remote.php/dav`)
+		})
 	})
+
 
 	describe('generateOcsUrl', () => {
 		beforeEach(() => {
@@ -54,6 +70,11 @@ describe('URL generation', () => {
 
 		it('can use OCSv1', () => {
 			expect(generateOcsUrl('/foo/bar', undefined, { ocsVersion: 1 })).toBe(`${window.location.href}ocs/v1.php/foo/bar`)
+		})
+
+		it('replaces base URL with given one', () => {
+			const baseURL = 'https://remote-url.com'
+			expect(generateOcsUrl('/foo/bar', undefined, { baseURL })).toBe(`${baseURL}/ocs/v2.php/foo/bar`)
 		})
 
 		it('starts with webroot', () => {
@@ -81,6 +102,11 @@ describe('URL generation', () => {
 			(window.OC.config as Record<string, unknown>).modRewriteWorking = true
 			// meaning it injects '/' at the beginning
 			expect(generateUrl('foo')).toBe('/foo')
+		})
+
+		it('replaces base URL with given one', () => {
+			const baseURL = 'https://remote-url.com'
+			expect(generateUrl('/foo/bar', undefined, { baseURL })).toBe(`${baseURL}/index.php/foo/bar`)
 		})
 
 		it('respects disabled mod-rewrite', () => {

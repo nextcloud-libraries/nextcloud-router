@@ -21,7 +21,7 @@
  */
 
 import { describe, expect, test } from 'vitest'
-import { getAppRootUrl, getRootUrl } from '../lib/index'
+import { getAppRootUrl, getBaseUrl, getRootUrl } from '../lib/index'
 
 declare global {
 	interface Window {
@@ -34,23 +34,27 @@ describe('Web root handling', () => {
 	test('empty web root', () => {
 		window._oc_webroot = ''
 		expect(getRootUrl()).toBe('')
+		expect(getBaseUrl()).toBe(window.location.origin)
 	})
 
 	test('with given web root', () => {
 		window._oc_webroot = '/nextcloud'
 		expect(getRootUrl()).toBe('/nextcloud')
+		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud`)
 	})
 
 	test('without web root configured', () => {
 		window._oc_webroot = undefined
 		window.location.pathname = '/index.php/apps/files'
 		expect(getRootUrl()).toBe('')
+		expect(getBaseUrl()).toBe(window.location.origin)
 	})
 
 	test('with implicit web root', () => {
 		window._oc_webroot = undefined
 		window.location.pathname = '/nextcloud/index.php/apps/files'
 		expect(getRootUrl()).toBe('/nextcloud')
+		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud`)
 	})
 
 	// TODO: This seems to be wrong, would expect `/nextcloud`
@@ -58,6 +62,7 @@ describe('Web root handling', () => {
 		window._oc_webroot = undefined
 		window.location.pathname = '/nextcloud/apps/files'
 		expect(getRootUrl()).toBe('/nextcloud/apps')
+		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud/apps`)
 	})
 })
 
