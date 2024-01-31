@@ -222,7 +222,9 @@ export function getRootUrl(): string {
 		if (pos !== -1) {
 			webroot = webroot.slice(0, pos)
 		} else {
-			webroot = webroot.slice(0, webroot.lastIndexOf('/'))
+			const index = webroot.indexOf('/', 1)
+			// Make sure to not cut end of path if there is just the webroot like `/nextcloud`
+			webroot = webroot.slice(0, index > 0 ? index : undefined)
 		}
 	}
 	return webroot

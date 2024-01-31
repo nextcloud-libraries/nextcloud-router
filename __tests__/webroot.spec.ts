@@ -57,12 +57,25 @@ describe('Web root handling', () => {
 		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud`)
 	})
 
-	// TODO: This seems to be wrong, would expect `/nextcloud`
+	test('with implicit empty web root', () => {
+		window._oc_webroot = undefined
+		window.location.pathname = '/'
+		expect(getRootUrl()).toBe('/')
+		expect(getBaseUrl()).toBe(`${window.location.origin}/`)
+	})
+
 	test('with implicit web root and path rename', () => {
 		window._oc_webroot = undefined
+		window.location.pathname = '/nextcloud'
+		expect(getRootUrl()).toBe('/nextcloud')
+		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud`)
+	})
+
+	test('with implicit web root on route with path rename', () => {
+		window._oc_webroot = undefined
 		window.location.pathname = '/nextcloud/apps/files'
-		expect(getRootUrl()).toBe('/nextcloud/apps')
-		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud/apps`)
+		expect(getRootUrl()).toBe('/nextcloud')
+		expect(getBaseUrl()).toBe(`${window.location.origin}/nextcloud`)
 	})
 })
 
