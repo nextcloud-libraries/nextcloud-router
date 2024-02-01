@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0 - 2023-02-01
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.2.1...v3.0.0)
+
+### Enhancements
+* Drop `core-js` and move to vite by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/563
+* enh(tests): Add unit tests and CI workflow for testing by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/564
+* feat: add method to get a base URL, allow to pass remote base by @Antreesy in https://github.com/nextcloud-libraries/nextcloud-router/pull/558
+
+### Fixed
+* fix: Adjust `generateFilePath` to include `type` also for `index.php` by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/566
+* fix(getRootUrl)!: If not configured use first subdirectory as webroot instead of last by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/570
+
+### Changed
+* Clean up code (drop unreachable code) and minor modernization by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/565
+* chore: Add ESLint to project and fix issues reported by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/561
+* Make README a bit nicer by adding badges for coverage and documentation by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/569
+
+### Dependencies
+* build(deps-dev): Bump vitest from 1.2.1 to 1.2.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-router/pull/567
+* build(deps-dev): Bump @vitest/coverage-v8 from 1.2.1 to 1.2.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-router/pull/568
+
+### New Contributors
+* @Antreesy made their first contribution in https://github.com/nextcloud-libraries/nextcloud-router/pull/558
+
+
 ## 2.2.1 - 2024-01-24
 [Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.2.0...v2.2.1)
 

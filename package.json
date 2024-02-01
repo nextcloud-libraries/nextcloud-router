@@ -1,6 +1,6 @@
 {
   "name": "@nextcloud/router",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "",
   "homepage": "https://github.com/nextcloud/nextcloud-router#readme",
   "author": "Christoph Wurst",
