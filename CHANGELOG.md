@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 3.0.0 - 2023-02-01
+## 3.0.0 - 2024-02-01
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.2.1...v3.0.0)
 
 ### Enhancements
@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## 2.2.1 - 2024-01-24
-[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.2.0...v2.2.1)
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.2.0...v2.2.1)
 
 ### Fixed
 * fix: Do not rely on `OC.webroots` or `OC.appwebroots` but use own logic by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/560
@@ -37,7 +37,7 @@ All notable changes to this project will be documented in this file.
 * chore: Update NPM version to 10 to align with version shipped by LTS Node 20 by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/559
 
 ## 2.2.0 - 2023-10-18
-[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.2...v2.2.0)
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.1.2...v2.2.0)
 
 ### What's Changed
 * chore: update NC typings versions by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-router/pull/491
@@ -58,27 +58,27 @@ All notable changes to this project will be documented in this file.
 * @raimund-schluessler made their first contribution in https://github.com/nextcloud-libraries/nextcloud-router/pull/503
 
 ## 2.1.2 – 2023-06-13
-[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.1...v2.1.2)
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.1.1...v2.1.2)
 
 ### Fixed
 - Do not export the declaration of `window.OC` to prevent typing clashes with applications
 
 ## 2.1.1 – 2023-04-21
-[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.1.0...v2.1.1)
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.1.0...v2.1.1)
 
 ### Fixed
 - Moved @nextcloud/typings from dev to production dependency
 
 ## 2.1.0 – 2023-04-20
 
-[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.0.1...v2.1.0)
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.0.1...v2.1.0)
 
 ### Changed
 - Dependency updates
 
 ## 2.0.1 - 2022-12-28
 
-[Full Changelog](https://github.com/nextcloud/nextcloud-router/compare/v2.0.0...v2.0.1)
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.0.0...v2.0.1)
 
 ### Fixed
 - fix: fix window variable definition
