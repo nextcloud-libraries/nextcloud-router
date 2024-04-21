@@ -137,17 +137,16 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
 
 /**
  * Get the path with webroot to an image file
- * if no extension is given for the image, it will automatically decide
- * between .png and .svg based on what the browser supports
+ * if no extension is given for the image, it will automatically add .svg
  *
  * @param {string} app the app id to which the image belongs
  * @param {string} file the name of the image file
  * @return {string}
  */
 export const imagePath = (app: string, file: string) => {
-	if (file.indexOf('.') === -1) {
+	if (!file.includes('.')) {
 		// if no extension is given, use svg
-		return generateFilePath(app, 'img', file + '.svg')
+		return generateFilePath(app, 'img', `${file}.svg`)
 	}
 
 	return generateFilePath(app, 'img', file)
