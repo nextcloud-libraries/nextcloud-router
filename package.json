@@ -52,5 +52,11 @@
   "engines": {
     "node": "^20.0.0",
     "npm": "^10.0.0"
-  }
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ]
 }
