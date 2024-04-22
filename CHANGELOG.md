@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.1 - 2024-04-22
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v3.0.0...v3.0.1)
+
+### Fixed
+* fix: `imagePath` always adds `.svg` if no extension is set on the file name by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/611
+* fix: Use files whitelist instead of .npmignore to only include needed files by @susnux in https://github.com/nextcloud-libraries/nextcloud-router/pull/612
+
+### Changed
+* fix typo in changelog by @Antreesy in https://github.com/nextcloud-libraries/nextcloud-router/pull/572
+* build(deps): Bump @nextcloud/typings from 1.7.0 to 1.8.0
+
 ## 3.0.0 - 2024-02-01
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-router/compare/v2.2.1...v3.0.0)
 
