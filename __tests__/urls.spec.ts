@@ -1,6 +1,6 @@
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 import { beforeAll, beforeEach, describe, expect, it, test } from 'vitest'
