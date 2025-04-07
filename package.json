@@ -1,19 +1,18 @@
 {
   "name": "@nextcloud/router",
   "version": "3.0.1",
-  "description": "",
-  "homepage": "https://github.com/nextcloud-libraries/nextcloud-router#readme",
-  "author": "Christoph Wurst",
-  "license": "GPL-3.0-or-later",
+  "description": "Utils for generating Nextcloud URLs",
   "keywords": [
     "nextcloud"
   ],
+  "homepage": "https://github.com/nextcloud-libraries/nextcloud-router#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/nextcloud-libraries/nextcloud-router"
   },
+  "license": "GPL-3.0-or-later",
+  "author": "Nextcloud GmbH and Nextcloud contributors",
   "type": "module",
-  "main": "dist/index.cjs",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -21,6 +20,13 @@
       "require": "./dist/index.cjs"
     }
   },
+  "main": "dist/index.cjs",
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "vite --mode production build",
     "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
@@ -31,8 +37,11 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
+  "browserslist": [
+    "extends @nextcloud/browserslist-config"
+  ],
   "dependencies": {
-    "@nextcloud/typings": "^1.7.0"
+    "@nextcloud/typings": "^1.9.1"
   },
   "devDependencies": {
     "@nextcloud/browserslist-config": "^3.0.1",
@@ -46,17 +55,8 @@
     "vite": "^6.2.5",
     "vitest": "^3.0.5"
   },
-  "browserslist": [
-    "extends @nextcloud/browserslist-config"
-  ],
   "engines": {
     "node": "^20.0.0",
     "npm": "^10.0.0"
-  },
-  "files": [
-    "dist",
-    "CHANGELOG.md",
-    "README.md",
-    "LICENSE"
-  ]
+  }
 }
