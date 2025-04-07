@@ -35,11 +35,13 @@ export interface UrlOptions {
 /**
  * Get an url with webroot to a file in an app
  *
- * @param {string} app the id of the app the file belongs to
- * @param {string} file the file path relative to the app folder
- * @return {string} URL with webroot to a file
+ * @param app - The id of the app the file belongs to
+ * @param file the file path relative to the app folder
+ * @return URL with webroot to a file
  */
-export const linkTo = (app: string, file: string) => generateFilePath(app, '', file)
+export function linkTo(app: string, file: string): string {
+	return generateFilePath(app, '', file)
+}
 
 /**
  * Creates a relative url for remote use
