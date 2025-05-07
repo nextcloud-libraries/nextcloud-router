@@ -4,11 +4,14 @@
 		"rootDir": "lib",
 		"target": "ESNext",
 		"module": "ESNext",
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"allowImportingTsExtensions": true,
 		"moduleResolution": "Bundler",
 		"outDir": "./dist",
 		"lib": [
 			"DOM",
-			"ES2015",
+			"ES2022",
 		],
 	}
 }
