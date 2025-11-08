@@ -41,7 +41,7 @@
     "extends @nextcloud/browserslist-config"
   ],
   "dependencies": {
-    "@nextcloud/typings": "^1.9.1"
+    "@nextcloud/typings": "^1.10.0"
   },
   "devDependencies": {
     "@nextcloud/browserslist-config": "^3.0.1",
