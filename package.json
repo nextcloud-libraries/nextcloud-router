@@ -46,13 +46,13 @@
   "devDependencies": {
     "@nextcloud/browserslist-config": "^3.1.2",
     "@nextcloud/eslint-config": "^8.4.2",
-    "@nextcloud/vite-config": "^2.3.5",
+    "@nextcloud/vite-config": "^2.5.2",
     "@vitest/coverage-v8": "^4.0.8",
     "eslint": "^8.56.0",
     "happy-dom": "^20.0.10",
     "typedoc": "^0.28.14",
     "typescript": "^5.9.3",
-    "vite": "^6.4.1",
+    "vite": "^7.2.2",
     "vitest": "^4.0.8"
   },
   "engines": {
