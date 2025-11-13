@@ -1,10 +1,10 @@
 :root {
-    --light-hl-0: #A31515;
-    --dark-hl-0: #CE9178;
-    --light-hl-1: #0000FF;
-    --dark-hl-1: #569CD6;
-    --light-hl-2: #098658;
-    --dark-hl-2: #B5CEA8;
+    --light-hl-0: #0000FF;
+    --dark-hl-0: #569CD6;
+    --light-hl-1: #098658;
+    --dark-hl-1: #B5CEA8;
+    --light-hl-2: #A31515;
+    --dark-hl-2: #CE9178;
     --light-code-background: #FFFFFF;
     --dark-code-background: #1E1E1E;
 }
