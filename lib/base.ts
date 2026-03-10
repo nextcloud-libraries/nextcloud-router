@@ -135,7 +135,7 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
 
 	const baseOrRootURL = options?.baseURL ?? getRootUrl()
 
-	if (window?.OC?.config?.modRewriteWorking === true && !allOptions.noRewrite) {
+	if (!allOptions.noRewrite && typeof window !== 'undefined' && window.OC?.config?.modRewriteWorking === true) {
 		return baseOrRootURL + _generateUrlPath(url, params, options)
 	}
 
