@@ -26,14 +26,16 @@ export interface UrlOptions {
 	ocsVersion?: number
 
 	/**
-	 * URL to use as a base (defaults to current instance)
+	 * URL to use as a base (defaults to current instance).
+	 * Required when running outside of a DOM environment (e.g. Node.js or Web Workers).
 	 * @default ''
 	 */
 	baseURL?: string
 }
 
 /**
- * Get an url with webroot to a file in an app
+ * Get an url with webroot to a file in an app.
+ * Only available in DOM environment.
  *
  * @param app - The id of the app the file belongs to
  * @param file the file path relative to the app folder
@@ -58,6 +60,7 @@ const linkToRemoteBase = (service: string) => '/remote.php/' + service
  * @param {UrlOptions} [options] options for the parameter replacement
  */
 export const generateRemoteUrl = (service: string, options?: UrlOptions) => {
+	ensureBaseUrlInNonDomEnvironment(options)
 	const baseURL = options?.baseURL ?? getBaseUrl()
 	return baseURL + linkToRemoteBase(service)
 }
@@ -74,6 +77,8 @@ export const generateOcsUrl = (url: string, params?: object, options?: UrlOption
 	const allOptions = Object.assign({
 		ocsVersion: 2,
 	}, options || {})
+
+	ensureBaseUrlInNonDomEnvironment(allOptions)
 
 	const version = (allOptions.ocsVersion === 1) ? 1 : 2
 	const baseURL = options?.baseURL ?? getBaseUrl()
@@ -133,6 +138,8 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
 		noRewrite: false,
 	}, options || {})
 
+	ensureBaseUrlInNonDomEnvironment(allOptions)
+
 	const baseOrRootURL = options?.baseURL ?? getRootUrl()
 
 	if (!allOptions.noRewrite && typeof window !== 'undefined' && window.OC?.config?.modRewriteWorking === true) {
@@ -144,7 +151,8 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
 
 /**
  * Get the path with webroot to an image file
- * if no extension is given for the image, it will automatically add .svg
+ * if no extension is given for the image, it will automatically add .svg.
+ * Only available in DOM environment.
  *
  * @param {string} app the app id to which the image belongs
  * @param {string} file the name of the image file
@@ -160,7 +168,8 @@ export const imagePath = (app: string, file: string) => {
 }
 
 /**
- * Get the url with webroot for a file in an app
+ * Get the url with webroot for a file in an app.
+ * Only available in DOM environment.
  *
  * @param {string} app the id of the app
  * @param {string} type the type of the file to link to (e.g. css,img,ajax.template)
@@ -168,7 +177,9 @@ export const imagePath = (app: string, file: string) => {
  * @return {string} URL with webroot for a file in an app
  */
 export const generateFilePath = (app: string, type: string, file: string) => {
-	const isCore = window?.OC?.coreApps?.includes(app) ?? false
+	ensureDomEnvironment()
+
+	const isCore = window.OC?.coreApps?.includes(app) ?? false
 	const isPHP = file.slice(-3) === 'php'
 	let link = getRootUrl()
 	if (isPHP && !isCore) {
@@ -207,19 +218,26 @@ export const generateFilePath = (app: string, type: string, file: string) => {
  * Return the full base URL where this Nextcloud instance
  * is accessible, with a web root included.
  * For example "https://company.com/nextcloud".
+ * Only available in DOM environment.
  *
  * @return {string} base URL
  */
-export const getBaseUrl = () => window.location.protocol + '//' + window.location.host + getRootUrl()
+export const getBaseUrl = () => {
+	ensureDomEnvironment()
+	return window.location.protocol + '//' + window.location.host + getRootUrl()
+}
 
 /**
  * Return the web root path where this Nextcloud instance
  * is accessible, with a leading slash.
  * For example "/nextcloud".
+ * Only available in DOM environment.
  *
  * @return {string} web root path
  */
 export function getRootUrl(): string {
+	ensureDomEnvironment()
+
 	let webroot = window._oc_webroot
 
 	if (typeof webroot === 'undefined') {
@@ -237,10 +255,36 @@ export function getRootUrl(): string {
 }
 
 /**
- * Return the web root path for a given app
+ * Return the web root path for a given app.
+ * Only available in DOM environment.
  * @param {string} app The ID of the app
  */
 export function getAppRootUrl(app: string): string {
+	ensureDomEnvironment()
+
 	const webroots = window._oc_appswebroots ?? {}
 	return webroots[app] ?? ''
+}
+
+/**
+ * Ensure the function is running in a DOM environment (browser with window object)
+ *
+ * @throws {Error} If not running in a DOM environment
+ */
+function ensureDomEnvironment(): void {
+	if (typeof window === 'undefined') {
+		throw new Error('This function is only available in a DOM environment')
+	}
+}
+
+/**
+ * Ensure if the function is running in a non-DOM environment, a baseURL option is provided
+ *
+ * @param {UrlOptions} [options] options that may contain baseURL
+ * @throws {Error} If not in DOM environment and baseURL is not provided
+ */
+function ensureBaseUrlInNonDomEnvironment(options?: UrlOptions): void {
+	if (typeof window === 'undefined' && !options?.baseURL) {
+		throw new Error('This function requires baseURL option to be provided in non-DOM environments')
+	}
 }
