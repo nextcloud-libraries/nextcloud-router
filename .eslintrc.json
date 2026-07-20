@@ -1,6 +1,0 @@
-{
-	"extends": [
-		"@nextcloud/eslint-config/typescript"
-	],
-	"ignorePatterns": [ "dist/**" ]
-}

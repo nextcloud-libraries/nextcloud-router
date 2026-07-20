@@ -4,11 +4,11 @@
  */
 
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest'
-import { generateFilePath, imagePath, linkTo } from '../lib/index'
+import { generateFilePath, imagePath, linkTo } from '../lib/index.ts'
 
 declare global {
 	interface Window {
-		_oc_appswebroots?: Record<string, string|undefined>
+		_oc_appswebroots?: Record<string, string | undefined>
 		_oc_webroot?: string
 		OC?: Record<string, unknown>
 	}

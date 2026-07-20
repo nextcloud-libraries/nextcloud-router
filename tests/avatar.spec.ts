@@ -1,7 +1,8 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
+
 import { generateAvatarUrl } from '../lib/avatar.ts'
 import { describe, expect, it } from 'vitest'
 

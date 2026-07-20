@@ -31,11 +31,11 @@
     "build": "vite --mode production build",
     "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
     "dev": "vite --mode development build",
-    "watch": "vite --mode development build --watch",
-    "lint": "eslint lib",
-    "lint:fix": "eslint --fix lib",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "watch": "vite --mode development build --watch"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
@@ -45,10 +45,10 @@
   },
   "devDependencies": {
     "@nextcloud/browserslist-config": "^3.1.2",
-    "@nextcloud/eslint-config": "^8.4.2",
+    "@nextcloud/eslint-config": "^9.0.1",
     "@nextcloud/vite-config": "^2.5.4",
     "@vitest/coverage-v8": "^4.1.10",
-    "eslint": "^8.56.0",
+    "eslint": "^10.7.0",
     "happy-dom": "^20.10.6",
     "typedoc": "^0.28.20",
     "typescript": "^5.9.3",
@@ -59,11 +59,13 @@
     "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
   },
   "devEngines": {
-    "packageManager": [{
-      "name": "npm",
-      "onFail": "error",
-      "version": "^11.3.0"
-    }],
+    "packageManager": [
+      {
+        "name": "npm",
+        "onFail": "error",
+        "version": "^11.3.0"
+      }
+    ],
     "runtime": {
       "name": "node",
       "onFail": "error",
