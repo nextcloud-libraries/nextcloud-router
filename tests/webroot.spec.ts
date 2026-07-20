@@ -4,11 +4,11 @@
  */
 
 import { describe, expect, test } from 'vitest'
-import { getAppRootUrl, getBaseUrl, getRootUrl } from '../lib/index'
+import { getAppRootUrl, getBaseUrl, getRootUrl } from '../lib/index.ts'
 
 declare global {
 	interface Window {
-		_oc_appswebroots?: Record<string, string|undefined>
+		_oc_appswebroots?: Record<string, string | undefined>
 		_oc_webroot?: string
 	}
 }

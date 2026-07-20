@@ -6,9 +6,9 @@
  */
 
 declare interface Window {
-	OC: Nextcloud.v26.OC | Nextcloud.v27.OC;
+	OC: Nextcloud.v31.OC | Nextcloud.v32.OC
 
 	// Private state directly from server
 	_oc_webroot?: string
-	_oc_appswebroots?: Record<string, string|undefined>
+	_oc_appswebroots?: Record<string, string | undefined>
 }

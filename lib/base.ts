@@ -9,18 +9,21 @@
 export interface UrlOptions {
 	/**
 	 * Set to false if parameters should not be URL encoded
+	 *
 	 * @default true
 	 */
 	escape?: boolean
 
 	/**
 	 * True if you want to force index.php being added
+	 *
 	 * @default false
 	 */
 	noRewrite?: boolean
 
 	/**
 	 * OCS version to use
+	 *
 	 * @default 2
 	 */
 	ocsVersion?: number
@@ -28,6 +31,7 @@ export interface UrlOptions {
 	/**
 	 * URL to use as a base (defaults to current instance).
 	 * Required when running outside of a DOM environment (e.g. Node.js or Web Workers).
+	 *
 	 * @default ''
 	 */
 	baseURL?: string
@@ -48,18 +52,19 @@ export function linkTo(app: string, file: string): string {
 /**
  * Creates a relative url for remote use
  *
- * @param {string} service id
- * @return {string} the url
+ * @param service id
+ * @return the url
  */
 const linkToRemoteBase = (service: string) => '/remote.php/' + service
 
 /**
  * Creates an absolute url for remote use
- * @param {string} service id
- * @return {string} the url
- * @param {UrlOptions} [options] options for the parameter replacement
+ *
+ * @param service id
+ * @return the url
+ * @param [options] options for the parameter replacement
  */
-export const generateRemoteUrl = (service: string, options?: UrlOptions) => {
+export function generateRemoteUrl(service: string, options?: UrlOptions) {
 	ensureBaseUrlInNonDomEnvironment(options)
 	const baseURL = options?.baseURL ?? getBaseUrl()
 	return baseURL + linkToRemoteBase(service)
@@ -68,15 +73,13 @@ export const generateRemoteUrl = (service: string, options?: UrlOptions) => {
 /**
  * Get the base path for the given OCS API service
  *
- * @param {string} url OCS API service url
- * @param {object} params parameters to be replaced into the service url
- * @param {UrlOptions} options options for the parameter replacement
- * @return {string} Absolute path for the OCS URL
+ * @param url OCS API service url
+ * @param params parameters to be replaced into the service url
+ * @param options options for the parameter replacement
+ * @return Absolute path for the OCS URL
  */
-export const generateOcsUrl = (url: string, params?: object, options?: UrlOptions) => {
-	const allOptions = Object.assign({
-		ocsVersion: 2,
-	}, options || {})
+export function generateOcsUrl(url: string, params?: object, options?: UrlOptions) {
+	const allOptions = { ocsVersion: 2, ...options || {} }
 
 	ensureBaseUrlInNonDomEnvironment(allOptions)
 
@@ -91,28 +94,24 @@ export const generateOcsUrl = (url: string, params?: object, options?: UrlOption
  *
  * Parameters will be URL encoded automatically
  *
- * @param {string} url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
- * @param {object} params parameters to be replaced into the address
- * @param {UrlOptions} options options for the parameter replacement
- * @return {string} Path part for the given URL
+ * @param url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
+ * @param params parameters to be replaced into the address
+ * @param options options for the parameter replacement
+ * @return Path part for the given URL
  */
-const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) => {
-	const allOptions = Object.assign({
-		escape: true,
-	}, options || {})
+function _generateUrlPath(url: string, params?: object, options?: UrlOptions) {
+	const allOptions = { escape: true, ...options || {} }
 
 	const _build = function(text: string, vars: Record<string, unknown>) {
 		vars = vars || {}
-		return text.replace(/{([^{}]*)}/g,
-			function(a: string, b: string) {
-				const r = vars[b]
-				if (allOptions.escape) {
-					return (typeof r === 'string' || typeof r === 'number') ? encodeURIComponent(r.toString()) : encodeURIComponent(a)
-				} else {
-					return (typeof r === 'string' || typeof r === 'number') ? r.toString() : a
-				}
-			},
-		)
+		return text.replace(/{([^{}]*)}/g, function(a: string, b: string) {
+			const r = vars[b]
+			if (allOptions.escape) {
+				return (typeof r === 'string' || typeof r === 'number') ? encodeURIComponent(r.toString()) : encodeURIComponent(a)
+			} else {
+				return (typeof r === 'string' || typeof r === 'number') ? r.toString() : a
+			}
+		})
 	}
 
 	if (url.charAt(0) !== '/') {
@@ -128,15 +127,13 @@ const _generateUrlPath = (url: string, params?: object, options?: UrlOptions) =>
  *
  * Parameters will be URL encoded automatically
  *
- * @param {string} url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
- * @param {object} params parameters to be replaced into the url
- * @param {UrlOptions} options options for the parameter replacement
- * @return {string} URL with webroot for the given relative URL
+ * @param url address (can contain placeholders e.g. /call/{token} would replace {token} with the value of params.token
+ * @param params parameters to be replaced into the url
+ * @param options options for the parameter replacement
+ * @return URL with webroot for the given relative URL
  */
-export const generateUrl = (url: string, params?: object, options?: UrlOptions) => {
-	const allOptions = Object.assign({
-		noRewrite: false,
-	}, options || {})
+export function generateUrl(url: string, params?: object, options?: UrlOptions) {
+	const allOptions = { noRewrite: false, ...options || {} }
 
 	ensureBaseUrlInNonDomEnvironment(allOptions)
 
@@ -154,11 +151,11 @@ export const generateUrl = (url: string, params?: object, options?: UrlOptions) 
  * if no extension is given for the image, it will automatically add .svg.
  * Only available in DOM environment.
  *
- * @param {string} app the app id to which the image belongs
- * @param {string} file the name of the image file
- * @return {string}
+ * @param app the app id to which the image belongs
+ * @param file the name of the image file
+ * @return
  */
-export const imagePath = (app: string, file: string) => {
+export function imagePath(app: string, file: string) {
 	if (!file.includes('.')) {
 		// if no extension is given, use svg
 		return generateFilePath(app, 'img', `${file}.svg`)
@@ -171,12 +168,12 @@ export const imagePath = (app: string, file: string) => {
  * Get the url with webroot for a file in an app.
  * Only available in DOM environment.
  *
- * @param {string} app the id of the app
- * @param {string} type the type of the file to link to (e.g. css,img,ajax.template)
- * @param {string} file the filename
- * @return {string} URL with webroot for a file in an app
+ * @param app the id of the app
+ * @param type the type of the file to link to (e.g. css,img,ajax.template)
+ * @param file the filename
+ * @return URL with webroot for a file in an app
  */
-export const generateFilePath = (app: string, type: string, file: string) => {
+export function generateFilePath(app: string, type: string, file: string) {
 	ensureDomEnvironment()
 
 	const isCore = window.OC?.coreApps?.includes(app) ?? false
@@ -220,9 +217,9 @@ export const generateFilePath = (app: string, type: string, file: string) => {
  * For example "https://company.com/nextcloud".
  * Only available in DOM environment.
  *
- * @return {string} base URL
+ * @return base URL
  */
-export const getBaseUrl = () => {
+export function getBaseUrl() {
 	ensureDomEnvironment()
 	return window.location.protocol + '//' + window.location.host + getRootUrl()
 }
@@ -233,7 +230,7 @@ export const getBaseUrl = () => {
  * For example "/nextcloud".
  * Only available in DOM environment.
  *
- * @return {string} web root path
+ * @return web root path
  */
 export function getRootUrl(): string {
 	ensureDomEnvironment()
@@ -257,7 +254,8 @@ export function getRootUrl(): string {
 /**
  * Return the web root path for a given app.
  * Only available in DOM environment.
- * @param {string} app The ID of the app
+ *
+ * @param app The ID of the app
  */
 export function getAppRootUrl(app: string): string {
 	ensureDomEnvironment()
@@ -280,7 +278,7 @@ function ensureDomEnvironment(): void {
 /**
  * Ensure if the function is running in a non-DOM environment, a baseURL option is provided
  *
- * @param {UrlOptions} [options] options that may contain baseURL
+ * @param [options] options that may contain baseURL
  * @throws {Error} If not in DOM environment and baseURL is not provided
  */
 function ensureBaseUrlInNonDomEnvironment(options?: UrlOptions): void {

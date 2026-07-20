@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 import type { UserConfig } from 'vite'
+
 import config from './vite.config'
 
 export default async (env) => {

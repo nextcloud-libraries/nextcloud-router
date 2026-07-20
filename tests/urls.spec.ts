@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { beforeAll, beforeEach, describe, expect, it, test } from 'vitest'
-import { generateOcsUrl, generateRemoteUrl, generateUrl } from '../lib/index'
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { generateOcsUrl, generateRemoteUrl, generateUrl } from '../lib/index.ts'
 
 declare global {
 	interface Window {
-		_oc_appswebroots?: Record<string, string|undefined>
+		_oc_appswebroots?: Record<string, string | undefined>
 		_oc_webroot?: string
 		OC?: Record<string, unknown>
 	}
@@ -40,7 +40,6 @@ describe('URL generation', () => {
 			expect(generateRemoteUrl('dav')).toBe(`${window.location.origin}/nextcloud/remote.php/dav`)
 		})
 	})
-
 
 	describe('generateOcsUrl', () => {
 		beforeEach(() => {
