@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { generateAvatarUrl } from '../lib/avatar.ts'
 import { describe, expect, it } from 'vitest'
+import { generateAvatarUrl } from '../lib/avatar.ts'
 
 describe('generateAvatarUrl', () => {
 	it('should return correct relative URL for user avatar', () => {
