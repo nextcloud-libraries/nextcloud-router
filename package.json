@@ -47,13 +47,13 @@
     "@nextcloud/browserslist-config": "^3.1.2",
     "@nextcloud/eslint-config": "^9.0.1",
     "@nextcloud/vite-config": "^2.5.4",
-    "@vitest/coverage-v8": "^4.1.11",
+    "@vitest/coverage-v8": "^5.0.0",
     "eslint": "^10.10.0",
     "happy-dom": "^20.14.0",
     "typedoc": "^0.28.20",
     "typescript": "^5.9.3",
     "vite": "^7.3.5",
-    "vitest": "^4.0.8"
+    "vitest": "^5.0.0"
   },
   "engines": {
     "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
