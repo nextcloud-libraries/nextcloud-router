@@ -37,4 +37,22 @@ describe('generateAvatarUrl', () => {
 		expect(generateAvatarUrl('alice', { isGuestUser: true, isDarkTheme: true })).toBe('//index.php/avatar/guest/alice/64/dark')
 		expect(generateAvatarUrl('john', { isGuestUser: true, isDarkTheme: true, size: 512 })).toBe('//index.php/avatar/guest/john/512/dark')
 	})
+
+	it('should append guestFallback query parameter if set', () => {
+		expect(generateAvatarUrl('alice', { guestFallback: true })).toBe('//index.php/avatar/alice/64?guestFallback=true')
+		expect(generateAvatarUrl('alice', { guestFallback: false })).toBe('//index.php/avatar/alice/64')
+	})
+
+	it('should append v query parameter if version is set', () => {
+		expect(generateAvatarUrl('alice', { version: 3 })).toBe('//index.php/avatar/alice/64?v=3')
+		expect(generateAvatarUrl('alice', { version: 'abc' })).toBe('//index.php/avatar/alice/64?v=abc')
+	})
+
+	it('should append both query parameters when combined', () => {
+		expect(generateAvatarUrl('alice', { guestFallback: true, version: 3 })).toBe('//index.php/avatar/alice/64?guestFallback=true&v=3')
+	})
+
+	it('should still append guestFallback for guest avatars even though the backend ignores it', () => {
+		expect(generateAvatarUrl('alice', { isGuestUser: true, guestFallback: true })).toBe('//index.php/avatar/guest/alice/64?guestFallback=true')
+	})
 })
