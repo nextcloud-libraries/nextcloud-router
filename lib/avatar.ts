@@ -14,7 +14,7 @@ export interface AvatarUrlOptions {
 	isDarkTheme?: boolean
 
 	/**
-	 * If the given user is is a guest user.
+	 * If the given user is a guest user.
 	 * This is needed as guest users use a different API endpoint.
 	 *
 	 * @default false
@@ -28,6 +28,19 @@ export interface AvatarUrlOptions {
 	 * @default 64
 	 */
 	size?: 64 | 512
+
+	/**
+	 * Fall back to a generated guest avatar if no avatar is found for the user.
+	 * Has no effect when `isGuestUser` is `true`.
+	 *
+	 * @default false
+	 */
+	guestFallback?: boolean
+
+	/**
+	 * Cache-busting value appended as a `v` query parameter.
+	 */
+	version?: string | number
 }
 
 /**
@@ -51,8 +64,19 @@ export function generateAvatarUrl(user: string, options?: AvatarUrlOptions): str
 		? '/dark'
 		: ''
 
-	return generateUrl(`/avatar${guestUrl}/{user}/{size}${themeUrl}`, {
+	const url = generateUrl(`/avatar${guestUrl}/{user}/{size}${themeUrl}`, {
 		user,
 		size,
 	})
+
+	const query = new URLSearchParams()
+	if (options?.guestFallback) {
+		query.set('guestFallback', 'true')
+	}
+	if (options?.version !== undefined) {
+		query.set('v', String(options.version))
+	}
+
+	const queryString = query.toString()
+	return queryString ? `${url}?${queryString}` : url
 }
